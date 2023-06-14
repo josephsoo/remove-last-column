@@ -1,7 +1,6 @@
 import csv
 import os
 import glob
-import pandas as pd
 
 # gets the parent directory path from bash
 def main():
@@ -19,10 +18,23 @@ def main():
             continue
 
         for textfile in glob.glob(os.path.join(folder, "*")):
-            data_frame = pd.read_csv(textfile, header = None)
-            upper_right_cell = data_frame.iloc[0, -1]
-            if (upper_right_cell == 'originalfile'):
-                remove_last_column(textfile)
+            with open(textfile, 'r') as file:
+                reader = csv.reader(file)
+                rows = list(reader)
+
+# Get the value of the upper right cell
+            upper_right_cell = rows[0][-1]
+
+# Check if it equals 'originalfile'
+            if upper_right_cell == 'originalfile':
+    # Remove the last column
+                for row in rows:
+                    del row[-1]
+
+# Write the modified data back to the CSV file
+            with open(textfile, 'w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(rows)
 
 def remove_last_column(csv_file):
     output_file = csv_file
