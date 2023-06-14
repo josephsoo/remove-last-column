@@ -4,6 +4,7 @@ import glob
 
 # gets the parent directory path from bash
 def main():
+    # parent_directory = '/Users/soojo/Documents/Cav_PTRF3_PTRF_aligned'
     parent_directory = os.environ['DATASET']
 
 # Check if the parent directory exists
