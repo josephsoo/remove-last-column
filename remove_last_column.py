@@ -1,6 +1,7 @@
 import csv
 import os
 import glob
+import pandas as pd
 
 # gets the parent directory path from bash
 def main():
@@ -12,14 +13,16 @@ def main():
         exit(1)
 
     for folder in glob.glob(os.path.join(parent_directory, "*")):
-        print(folder)
-        
+
+
         if not os.path.isdir(folder):
             continue
 
         for textfile in glob.glob(os.path.join(folder, "*")):
-            remove_last_column(textfile)
-
+            data_frame = pd.read_csv(textfile, header = None)
+            upper_right_cell = data_frame.iloc[0, -1]
+            if (upper_right_cell == 'originalfile'):
+                remove_last_column(textfile)
 
 def remove_last_column(csv_file):
     output_file = csv_file
