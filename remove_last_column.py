@@ -29,7 +29,7 @@ def main():
 
 # Check if it equals 'originalfile'
             if upper_right_cell == 'originalfile':
-                print(f"deleting {textfile}")
+                print(f"deleting last column for {textfile}")
     # Remove the last column
                 for row in rows:
                     del row[-1]
